@@ -7,7 +7,7 @@ exports.checkRole = (arrayRoles) => {
         if (arrayRoles.includes(role)) {
             return next()
         } else {
-            return res.status(403).send("you don't have permission for this action")
+            return res.status(403).send("No tienes los permisos necesarios")
         }
 
 

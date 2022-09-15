@@ -34,9 +34,9 @@ router.get("/session", (req, res) => {
 });
 
 router.post("/signup", isLoggedOut, (req, res) => {
-  const { firstname, lastname, password, email, role, ...restUser } = req.body;
+  const { username, lastname, password, email, role, ...restUser } = req.body;
 
-  if (!firstname || !lastname || !password || !email) {
+  if (!username || !lastname || !password || !email) {
     return res
       .status(400)
       .json({ errorMessage: "Todos los campos deben ser llanados." });
@@ -62,7 +62,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       .then((salt) => bcrypt.hash(password, salt))
       .then((hashedPassword) => {
         return User.create({
-          firstname,
+          username,
           lastname,
           password: hashedPassword,
           email,
@@ -181,6 +181,8 @@ router.post("/recoverPassword", (req, res) => {
         User.findOneAndUpdate({ email }, { password: hashedPassword }, { new: true })
         .then(userUpdate =>{
           console.log('User update password', userUpdate)
+          return res.status(200).json({successMessage:'todo ok'})
+  
       })
       }
     })
